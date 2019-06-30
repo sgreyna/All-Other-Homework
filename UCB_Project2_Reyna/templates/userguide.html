@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>UCB Project 2</title>
+  </head>
+  <body>
+ <p class="lead">
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/calculator" role="button"> BV Calculator </a>
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+  	<div class="jumbotron text-xs-center">
+  	
+   		
+  		<h1 class="display-3">User Guide</h1>
+  		<hr>
+  		<h2 class="display-5"> <u> Definitions </u></h2>
+  		<p class="lead"><strong>Overhead: </strong>  an accounting term that refers to ongoing business expenses including rent, mortgage, utilities, payroll, office expenses, advertising, and marketing. Overhead is fixed, variable or semi-variable and a major determinant in product pricing and budgeting. (bizfluent.com)</p>
+  		<p class="lead"><strong>Business Volume: </strong> to simplify, this is total sales.</p>
+  		<p class="lead"><strong>Overhead Rate: </strong> the proportion of overhead costs compared to sales. Knowing the percentage of each dollar that goes to overhead allows you to properly allocate costs when setting prices and drawing up budgets. (smallbusines.chron.com)</p>
+  		
+  		<h4>  <font color="red"> Simple Formula:  Cost of Overhead / Business Volume = <strong>Overhead Rate </strong> </font> </h4>
+  		<br>
+  		<h4>The complexity are in these areas: <h4>
+  			<h5>multiple overhead categories or pools.  This tool uses the following</h5>
+  				<li> G&A:  General and Administrative</li>
+  				<li> SPI:  Support for Physical Infrastructure</li>
+  				<li> ICP:  Institutional Capital Project</li>
+  				<li> LDRD:  Lab Directed Research and Development</li>
+  				<li> Proc:  Procurement</li>
+
+  			<br>
+  			<h5>different pools have different base, for example:</h5>
+  				<li> G&A's base includes all Business Volume</li>
+  				<li> SPI's base includes only the portion of Business Volume that is performed on site</li>
+
+  			<br>
+  			<h5>overhead application (algorithm):</h5>
+  				<li> (Business Volume * 1.SPI Rate) + (Business Volume * 1.ICP Rate) = First Subtotal </li>
+  				<li> (Business Volume + First Subtotal) *  1.G&A Rate = Second Sub Total </li>
+  				<li> (Business Volume + First Subtotal + Second Subtotal) * 1.LDRD Rate) = Third Subtotal </li>
+  				<li> (First Subtotal + Second Subtotal + Third Subtotal) = Accrued Overhead from Applied Rates </li>
+
+  		<hr>
+  		<h2 class="display-5"> <u> User Guide </u></h2>
+  		<p class="mb-0">Tool Purpose: Allows users to dynamically adjust Business Volume scenario and view the impacts on indirect rates. </p>
+  		<br>
+  		<p class="mb-0">Inspiration: My current work-related project involves what we call tool discovery.  A full-stack BI tool is currently being proposed to our Senior Management group.  This includes a data repository (e.g. data warehouse, data lake, or a data hub), a visualization and analytics tool with reporting and dashboarding capability.  This type of project requires not only funds but also time for planning and implementation.  This means that we do not have a tool yet, but we need something now.  Hence this UCB project is a proof-of-concept for a tool that will render and gather info from a user via web.  </p>
+  		<br>
+  		<hr>
+  		<h2 class="display-5"> <u> View Data </u></h2>
+      <!-- Group of default radios - option 1 -->
+     
+     
+     <!--<form >
+        <fieldset>
+          <legend>Select the data to view</legend> -->
+      <div class="dataRadioButton" id="dataRadioButtonChoices">
+          <input type="radio" id= "IndPoolRadioID" name="IndPoolRadioName" onclick ="ValidateForm(name)"><label> Indirect Pool $K </label><br>
+          <input type="radio" id= "BVRadioID"  name = "BVRadioName"  onclick ="ValidateForm(name)" ><label> Business Volume at $K</label><br>
+          <input type="radio" id= "RateRadioID"  name ="rateRadioName"onclick ="ValidateForm(name)" ><label> Applied Overhead Rates</label><br>
+    </div>
+
+       <!--</fieldset>
+      </form> -->
+
+ <!-- Indirect Table-->
+      <table class="table table-dark" id="myTable" border = 1 style="display:none">
+        <caption> Version: {% for row in ind_version %} {{row["Version"]}} {% endfor %} </caption>
+         <thead>
+            <td>Version</td>
+            <td>Indirect_Pool</td>
+            <td>Pool Amount</td>
+            <td>Business Volume Amount</td>
+            <td>Applied OH Rate</td>
+         </thead>
+         
+         {% for row in rows %}
+            <tr>
+               <td> {{ row["Version"]}}</td>
+               <td> {{ row["Indirect_Pool"]}}</td>
+               <td>{{row['PoolAmt']}}</td>  
+               <td>{{row['BVAmt']}}</td>
+               <td>{{row['Applied_Rate']}}</td>
+            </tr>
+         {% endfor %}
+      </table>
+     
+ <!-- Rate Table-->
+      <table class="table table-dark" id="myRateTable" border = 1 style="display:none">
+        <caption> Version: {% for row in ind_version %} {{row["Version"]}} {% endfor %} </caption>
+         <thead>
+            <td>Indirect_Pool</td>
+            <td>Applied Rate</td>
+         </thead>
+         
+         {% for ohrow in oh_rate %}
+            <tr>
+               <td> {{ohrow["Indirect_Pool"]}}</td>
+               <td>{{ohrow["Applied_Rate"]}}</td>  
+            </tr>
+         {% endfor %}
+      </table>
+     
+ <!-- B Table-->
+      <table class="table table-dark" id="myBVTable" border = 1 style="display:none">
+        <caption> Version: {% for row in ind_version %} {{row["Version"]}} {% endfor %} </caption>
+         <thead>
+            <td>Year</td>
+            <td>Version</td>
+            <td>Funding Category</td>
+            <td>Labor & Travel Amount</td>
+            <td>Procurement Amout</td>
+            <td>Total Amount</td>
+            <td>OH Portion of Amount</td>
+         </thead>
+         
+         {% for bvrow in bv_data %}
+            <tr>
+               <td>{{bvrow["Year"]}}</td>
+               <td>{{bvrow["Version"]}}</td>  
+               <td>{{bvrow["Funding_Category"]}}</td>  
+               <td>{{bvrow["NonProcAmt"]}}</td>  
+               <td>{{bvrow["ProcAmt"]}}</td>  
+               <td>{{bvrow["Total"]}}</td>  
+               <td>{{bvrow["OH"]}}</td>  
+            </tr>
+         {% endfor %}
+      </table>
+  		<hr>
+  		<br>
+ 		 <p class="lead">
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/calculator" role="button"> BV Calculator </a>
+   		 <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+
+      <script>
+     function ValidateForm(name){
+      if(name == "IndPoolRadioName"){
+        document.getElementById("myTable").style.display = "";
+        document.getElementById("myRateTable").style.display = "none";
+        document.getElementById("myBVTable").style.display = "none";
+        document.getElementById("BVRadioID").checked = false;
+        document.getElementById("RateRadioID").checked = false;
+        document.getElementById("IndPoolRadioID").checked = true;
+      } 
+      else if (name == "BVRadioName"){
+        document.getElementById("myTable").style.display = "none";
+        document.getElementById("myRateTable").style.display = "none";
+        document.getElementById("myBVTable").style.display = "";
+        document.getElementById("IndPoolRadioID").checked = false;
+        document.getElementById("RateRadioID").checked = false;
+        document.getElementById("BVRadioID").checked = true;
+      } 
+      else if (name == "rateRadioName"){
+        document.getElementById("myTable").style.display = "none";
+        document.getElementById("myRateTable").style.display = "";
+        document.getElementById("myBVTable").style.display = "none";
+        document.getElementById("IndPoolRadioID").checked = false;
+        document.getElementById("BVRadioID").checked = false;
+        document.getElementById("RateRadioID").checked = true;
+      }
+    }
+
+ 
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   
+  </body>
+</html>
+
+
+
+
+
+
+
+
