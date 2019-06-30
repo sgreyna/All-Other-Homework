@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+   
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <title>UCB Project 2</title>
+
+  </head>
+
+
+   <body>
+   <p class="lead">
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/calculator" role="button"> BV Calculator </a>
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+
+      <h3 class="display-3">New Version Saved</h>
+      <br>
+
+      <table border = 1>
+         {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+
+
+   <hr>
+      <br>
+       <p class="lead">
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/calculator" role="button"> BV Calculator </a>
+          <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+
+
+   </body>
+</html>
