@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <title>UCB Homework: Weather Visualization</title>
+</head>
+<body style="background-color: white">
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+
+           <a class="navbar-brand logo" href="index.html"> 
+            <span class="nav-color">Weather Patern</span></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="landing.html">Home</a> M</li>
+            <li><a href="temperature.html">Max Temperature</a></li>
+            <li><a href="humidity.html">Humidity</a></li>
+            <li><a href="cloudiness.html">Cloudiness</a></li>
+            <li><a href="windspeed.html">Wind Speed</a></li>
+            <li><a href="comparison.html">Comparison</a></li>
+            <li><a href="table.html">Data</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+    <div class = "container" >
+        
+            <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                    <h2>Summary: Latitude vs Longitude</h2>
+                    <hr>
+                    <img src="Resources/assets/images/Fig1.png" height="280" width="380" align="left" alt="first image" >
+                    <p class="p1">The purpose of this project was to analyze how weather changes as you get close to the equator.To accomplish this analysis we first pulled data from the OpenWeatherMap API to assemble a dataset on over 500 cities.</p>
+                     <p class= "p1">After assembling the dataset, we used Matplotlib to plot various aspects of weather vs. latitude. Factors we looked at included: temperatue, cloudiness, wind speed and humidity. This site provides the source data and visualizations 
+                                    created as part of the analysis as well as explanations and descriptions of any trends and correlations witnessed.
+                    </p>
+                
+                    <br>        
+                    </div>
+               
+            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                        <div class="panel-body">                                    
+                            <h2>Visualizations</h2>
+                            <hr>
+
+                            <div class="row" >
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="temperature.html"><img class = "img img-responsive" src="Resources/assets/images/Fig1.png" style="width:100%" alt=""></a> Max Temperature</div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="humidity.html"><img class = "img img-responsive" src="Resources/assets/images/Fig2.png" style="width:100%" alt=""></a> Humidity</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="cloudiness.html"><img class = "img img-responsive" src="Resources/assets/images/Fig3.png" style="width:100%" alt=""></a> Cloudiness</div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="windspeed.html"><img class = "img img-responsive" src="Resources/assets/images/Fig4.png" style="width:100%" alt=""></a> Windspeed</div>
+                            </div>
+                                
+                        </div>
+                </div>     
+            </div>    
+    </div>
+</body>
+</html>
