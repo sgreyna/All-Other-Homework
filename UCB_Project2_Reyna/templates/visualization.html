@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+   
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src ="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/visual.css">
+
+    <script> 
+      var myData = JSON.parse('{{ firstGraph | tojson | safe}}')
+      var myData1 = JSON.parse('{{ dataGraph | tojson | safe}}')
+      var myYear = JSON.parse('{{ yearGraph | tojson | safe}}')
+
+      console.log(myYear)
+      console.log(myData1)
+    
+    </script>
+
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>UCB Project 2</title>
+  </head>
+
+ <!-- ##############################################################################-->   
+  
+<body>
+    <p class="lead">
+       <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+       <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/userguide" role="button"> Definitions & User Guide</a>
+       <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/calculator" role="button"> BV Calculator  </a>
+
+
+  <h1 class="display-3">Story Board</h1>
+  <hr>
+  <!-- ****************************************************************************-->
+
+    <div class="graphRadioButton" id="graphdataRadioButtonChoices">
+          <input type="radio" id= "TotalStack"  name = "TotalStack"  onclick ="choose(name)" ><label>  </label>BV Funding Category By Year<br>
+          <input type="radio" id= "BVBar" name="BVBar" onclick ="choose(name)" ><label> Most Recent BV Version</label><br>   
+    </div>
+
+
+
+
+  <!-- ****************************************************************************-->
+
+  <div id = "level2" style= "display:  none">
+      <div id='container2'>  </div>
+  </div>
+
+  <div id = "level1" style= "display:  none">
+      <div id='container'>   </div>
+  </div>
+
+  
+
+
+  <!-- ****************************************************************************-->  
+
+
+<script src="{{ url_for('static', filename='js/firstGraph.js') }}"></script> 
+<script>
+  createGraph1(myData);
+  createGraph2(myYear, myData1);
+
+</script>
+</body>
+
+    
+
+</html>
+
+
