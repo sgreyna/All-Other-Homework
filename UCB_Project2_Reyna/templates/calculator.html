@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script>
+
+          var indRowData = JSON.parse('{{ indRows | tojson | safe}}')
+
+          var defaultBV = JSON.parse('{{ defaultBV | tojson | safe}}')
+
+          var maxBVVersion = JSON.parse('{{ maxBVVersion | tojson | safe}}')
+
+          var maxIndVersion = JSON.parse('{{ maxIndVersion | tojson | safe}}')
+        
+
+          console.log(indRowData)
+          console.log(defaultBV)
+          console.log(maxBVVersion)
+          console.log(maxIndVersion)
+
+          
+    
+    </script>
+
+    <title>UCB Project 2</title>
+  </head>
+  <body>
+
+  <div>
+  <p class="lead">
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/userguide" role="button"> Definitions & User Guide</a>
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+  </div>
+  <br>
+  <hr>
+
+  <form action ="{{ url_for('postData') }}" method="post">
+    
+
+        <table id='calculator_table' class="table table-striped">
+            <h1> Budget Table </h1>
+            <thead>
+                <tr>
+                    <th>Funding Category</th>
+                    <th>Non-Proc Budgget (Labor & Travel)</th>
+                    <th>Procurement Budget</th>
+                    <th>Total Budget</th>
+                    <th>OH Portion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="bvrow">
+                    <td id="FACOPS" name="budgetrow">Facility Operations</td>
+                    <td><input type="number" step= "any" id="FNonProc" name ="FNonProc" /></td>
+                    <td><input type="number" step= "any"   id="FProc"  name ="FProc" /></td>
+                    <td name="TotaBudget" id="FTotalBudget" ></td>
+                    <td name="OHPortion" id="FOHPortion" ></td>
+                </tr>
+                <tr class="bvrow">
+                    <td id="BESHEP" name="budgetrow">BES /  HEP</td>
+                    <td><input type="number"  step= "any"  id="BNonProc" name="BNonProc" /></td>
+                    <td><input type="number"  step= "any"  id="BProc" name="BProc" /></td>
+                    <td name="TotaBudget" id="BTotalBudget" ></td>
+                    <td name="OHPortion" id="BOHPortion" ></td>
+                </tr>
+                <tr class="bvrow">
+                    <td id="OtherMarkets" name="budgetrow">Other SC Markets</td>
+                    <td><input type="number"  step= "any"  id="ONonProc" name="ONonProc" /></td>
+                    <td><input type="number"  step= "any"  id="OProc" name="OProc"/></td>
+                    <td name="TotaBudget" id="OTotalBudget" ></td>
+                    <td name="OHPortion" id="OOHPortion" ></td>
+                </tr>
+                <tr class="bvrow">
+                    <td id="SPP" name="budgetrow">SPP & New Markets</td>
+                    <td><input type="number"  step= "any"  id="SNonProc" name="SNonProc" /></td>
+                    <td><input type="number"  step= "any"  id="SProc" name="SProc" /></td>
+                    <td name="TotaBudget" id="STotalBudget" ></td>
+                    <td name="OHPortion" id="SOHPortion" ></td>
+                </tr>
+                <tr class="bvrow">
+                    <td id="MajorProjects" name="budgetrow">Major Projects</td>
+                    <td><input type="number"  step= "any"  id="MNonProc" name="MNonProc"/></td>
+                    <td><input type="number"  step= "any"  id="MProc" name="MProc"/></td>
+                    <td name="TotaBudget" id="MTotalBudget" ></td>
+                    <td name="OHPortion" id="MOHPortion" ></td>
+                </tr>
+                <tr class="bvrow">
+                    <td id="Total" name="budgetrow">Total</td>
+                    <td name =  "TNonProc" id="TNonProc" ></td>
+                    <td name =  "TProc" id="TProc" ></td>
+                    <td name="TotaBudget" id="TTotalBudget" ></td>
+                    <td name="OHPortion" id="TOHPortion" ></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="input1" name="FTotalBudget" type="hidden" value="">
+                        <input id="input2" name="FOHPortion" type="hidden" value="">
+                        <input id="input3" name="BTotalBudget" type="hidden" value="">
+                        <input id="input4" name="BOHPortion" type="hidden" value="">
+                        <input id="input5" name="OTotalBudget" type="hidden" value="">
+                        <input id="input6" name="OOHPortion" type="hidden" value="">
+                        <input id="input7" name="STotalBudget" type="hidden" value="">
+                        <input id="input8" name="SOHPortion" type="hidden" value="">
+                        <input id="input9" name="MTotalBudget" type="hidden" value="">
+                        <input id="input10" name="MOHPortion" type="hidden" value="">
+                    </td>
+                    <td>
+                        <input type = "button" value = "Reset" onclick = resetInputs() />
+                        <input type = "button" value = "Calculate" onclick = calcRate() />
+                        <input type = "submit" value = "Submit" />
+                    </td>
+
+                    
+                </tr>
+            </tbody>
+
+
+           
+        </table>
+
+    <hr>
+
+
+    <table id='calcRateTable' class="table table-striped">
+     <h1> OH Rate Table </h1>
+    <thead>
+    <tr>
+        <th></th>
+        <th>G&A</th>
+        <th>SPI</th>
+        <th>ICP</th>
+        <th>LDRD</th>
+        <th>Proc</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr class="row1_Rate">
+        <td name="PoolCost">Indirect Pool Budget (Numerator)</td>
+        <td name="GA" id="PoolGA" >116,583</td>
+        <td name="SPI" id="PoolSPI" >29,428</td>
+        <td name="ICP" id="PoolICP" >4,404</td>
+        <td name="LDRD" id="PoolLDRD" >30,819</td>
+        <td name="Proc" id="PoolProc" >22,229</td>
+
+    </tr>
+    <tr class="row2_Rate">
+        <td name="BV">Business Volume (Denominator)</td>
+        <td name="GA" id="BVGA"></td>
+        <td name="SPI" id="BVSPI"></td>
+        <td name="ICP" id="BVICP"></td>
+        <td name="LDRD" id="BVLDRD"></td>
+        <td name="Proc" id="BVProc"></td>
+    </tr>
+    <tr class="row3_Rate">
+        <td name="CalcRate">Calculated Rate (Numerator/Denominator)</td>
+        <td name="GA" id="newGA"></td>
+        <td name="SPI" id="newSPI"></td>
+        <td name="ICP" id="newICP"></td>
+        <td name="LDRD" id="newLDRD"></td>
+        <td name="Proc" id="newProc"></td>
+    </tr>
+     <tr class="row4_Rate">
+        <td name="AppliedRate">Applied Rate (Current Rate)</td>
+        <td name="GA" id="appliedGA" value = .2>20%</td>
+        <td name="SPI" id="appliedSPI" value =.1>10%</td>
+        <td name="ICP" id="appliedICP" value = .02>2%</td>
+        <td name="LDRD" id="appliedLDRD" value = .05>5%</td>
+        <td name="Proc" id="appliedProc" vaue = .07>7%</td>
+    </tr>
+    <td>
+        <input id="input11" name="BVGA" type="hidden" value="">
+        <input id="input12" name="BVSPI" type="hidden" value="">
+        <input id="input13" name="BVICP" type="hidden" value="">
+        <input id="input14" name="BVLDRD" type="hidden" value="">
+        <input id="input15" name="BVProc" type="hidden" value="">
+        <input id="input16" name="newGA" type="hidden" value="">
+        <input id="input17" name="newSPI" type="hidden" value="">
+        <input id="input18" name="newICP" type="hidden" value=""> 
+        <input id="input19" name="newLDRD" type="hidden" value="">
+        <input id="input20" name="newProc" type="hidden" value=""> 
+        <input id = "input21" name = "maxBVVersionName" type= "hidden" value = "">
+        <input id = "input22" name ="maxIndVersionName" type= "hidden" value = "">
+    </td>
+    </tbody>
+    </table>
+    <hr>
+
+</form>
+
+
+
+
+  <div>
+  <p class="lead">
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000" role="button"> Home</a>
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/userguide" role="button"> Definitions & User Guide</a>
+    <a class="btn btn-primary btn-sm" href="http://127.0.0.1:5000/visualization" role="button"> Visualization  </a>
+  </div>
+
+
+
+  <script src="{{ url_for('static', filename='js/calculator.js') }}"></script> 
+ </body>
+
+</html>
+
+
